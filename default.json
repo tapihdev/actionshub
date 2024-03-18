@@ -1,0 +1,19 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": [
+    "config:base",
+    "helpers:pinGitHubActionDigests"
+  ],
+  "labels": ["renovate"],
+  "prHourlyLimit": 0,
+  "prConcurrentLimit": 5,
+  "prCreation": "not-pending",
+  "prNotPendingHours": 1,
+  "timezone": "Asia/Tokyo",
+  "ignoreUnstable": true,
+  "rebaseStalePrs": false,
+  "separateMajorMinor": true,
+  "ci": {
+    "fileMatch": ["does-not-look-like-a-docker-file"]
+  }
+}

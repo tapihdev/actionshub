@@ -1,0 +1,16 @@
+name: 'Songmu/tagpr'
+description: I don't want to manage the dependency in multiple repositories.
+
+outputs:
+  tag:
+    description: "The semver tag, which is output only when the tagpr has tagged"
+    value: ${{ steps.tagpr.outputs.tag }}
+  pull_request:
+    description: "Information of the pull request created by tagpr in JSON format"
+    value: ${{ steps.tagpr.outputs.pull_request }}
+
+runs:
+  using: composite
+  steps:
+    - uses: Songmu/tagpr@d73c022fee724bfaeed260ef5f509724c45dc980 # v1.1.2
+      id: tagpr

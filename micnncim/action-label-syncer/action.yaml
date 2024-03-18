@@ -1,0 +1,50 @@
+name: 'micnncim/action-label-syncer'
+description: I don't want to manage the dependency in multiple repositories.
+
+inputs:
+  repository:
+    description: 'The repo to sync labels on (defaults to current repo)'
+    required: false
+  token:
+    description: 'An alternative GitHub token to use instead'
+    required: false
+  prune:
+    description: 'Remove unmanaged labels from repository'
+    required: false
+    default: 'true'
+
+runs:
+  using: composite
+  steps:
+    - name: Create manifest YAML
+      shell: bash
+      run: |
+        cat << 'EOF' > .github/labels.yaml
+          - name: tagpr
+            description: Tagpr annotates this label to the version bump PR
+            color: ecf0f1
+          - name: tagpr:minor
+            description: Tagpr updates minor version when annotated manually
+            color: 1abc9c
+          - name: tagpr:major
+            description: Tagpr updates major version when annotated manually
+            color: 1abc9c
+          - name: release/minor
+            description: Tagpr updates minor version when annotated manually
+            color: 8e44ad
+          - name: release/major
+            description: Tagpr updates major version when annotated manually
+            color: 8e44ad
+        EOF
+
+    - name: Run action-label-syncer
+      uses: micnncim/action-label-syncer@3abd5ab72fda571e69fffd97bd4e0033dd5f495c # v1.3.0
+      with:
+        manifest: .github/labels.yaml
+        repository: ${{ inputs.repository }}
+        token: ${{ inputs.token }}
+        prune: ${{ inputs.prune }}
+
+    - name: Remove manifest
+      shell: bash
+      run: rm -f .github/labels.yaml
