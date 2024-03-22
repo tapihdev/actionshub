@@ -2,11 +2,8 @@ name: 'Songmu/tagpr'
 description: I don't want to manage the dependency in multiple repositories.
 
 inputs:
-  app-id:
-    description: 'The GitHub App ID'
-    required: true
-  private-key:
-    description: 'The private key of the GitHub App'
+  github-token:
+    description: 'GitHub token'
     required: true
 
 outputs:
@@ -20,13 +17,7 @@ outputs:
 runs:
   using: composite
   steps:
-    - uses: actions/create-github-app-token@v1
-      id: token
-      with:
-        app-id: ${{ inputs.app-id }}
-        private-key: ${{ inputs.private-key }}
-
     - uses: Songmu/tagpr@d73c022fee724bfaeed260ef5f509724c45dc980 # v1.1.2
       id: tagpr
       env:
-        GITHUB_TOKEN: ${{ steps.token.outputs.token }}
+        GITHUB_TOKEN: ${{ inputs.github-token }}
