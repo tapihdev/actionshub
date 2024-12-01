@@ -17,7 +17,7 @@ outputs:
 runs:
   using: composite
   steps:
-    - uses: Songmu/tagpr@d73c022fee724bfaeed260ef5f509724c45dc980 # v1.1.2
+    - uses: Songmu/tagpr@3dca11e7c0d68637ee212ddd35acc3d30a7403a4 # v1.5.0
       id: tagpr
       env:
         GITHUB_TOKEN: ${{ inputs.github-token }}
